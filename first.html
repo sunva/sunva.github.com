@@ -13,8 +13,29 @@
     <![endif]-->
   </head>
   <body>
-  <h1>看到了吗？</h1>
+  <h1 id="canUsee">看到了吗？</h1>
+	<script src="http://cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
+  	<script src="javascripts/bmob-min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
-    
+    <script>
+	
+		//Bmob.initialize("Application ID", "REST API Key");
+		Bmob.initialize("0f098d481f8277cf4cc21648a922bcc9", "524950fa929186f291ebbd4c2fe588e7");
+		
+		var GameScore = Bmob.Object.extend("GameScore");
+		var gameScore = new GameScore();
+		gameScore.set("score", 1337);
+		gameScore.save(null, {
+		  success: function(object) {
+			$("#canUsee").html("Connect Bmob success");
+			//alert("create object success, object id:"+object.id);
+		  },
+		  error: function(model, error) {
+			$("#canUsee").html("Connect Bmob error");
+			//alert("create object fail");
+		  }
+		});
+	
+	</script>
   </body>
 </html>
