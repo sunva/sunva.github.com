@@ -35,7 +35,26 @@
 			//alert("create object fail");
 		  }
 		});
-	
+		
+		var query = new Bmob.Query(GameScore);
+		query.get("6a88575e42", {
+		  success: function(object) {
+			alert(object.get("score"));
+			// The object was retrieved successfully.
+			object.set("score", 1338);
+			object.save(null, {
+			  success: function(objectUpdate) {
+				alert("create object success, object score:"+objectUpdate.get("score"));
+			  },
+			  error: function(model, error) {
+				alert("create object fail");
+			  }
+			});
+		  },
+		  error: function(object, error) {
+			alert("query object fail");
+		  }
+		});
 	</script>
   </body>
 </html>
