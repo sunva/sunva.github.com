@@ -14,15 +14,18 @@
   </head>
   <body>
   <h1 id="canUsee">看到了吗？</h1>
+  <input id="searchPic" type="button" value="查图片" />
 	<script src="//cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
   	<script src="javascripts/bmob-min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
-    <script>
+<script>
+$(function(){
+	Bmob.initialize("0f098d481f8277cf4cc21648a922bcc9", "524950fa929186f291ebbd4c2fe588e7");
 	
-		//Bmob.initialize("Application ID", "REST API Key");
-		Bmob.initialize("0f098d481f8277cf4cc21648a922bcc9", "524950fa929186f291ebbd4c2fe588e7");
-		
-		var GameScore = Bmob.Object.extend("GameScore");
+	var GameScore = Bmob.Object.extend("GameScore");
+	var Answer = Bmob.Object.extend("Answer");
+	
+	function addtoDB(){
 		var gameScore = new GameScore();
 		gameScore.set("score", 1337);
 		gameScore.save(null, {
@@ -35,7 +38,9 @@
 			//alert("create object fail");
 		  }
 		});
-		
+	}
+	
+	function updateDB(){
 		var query = new Bmob.Query(GameScore);
 		query.get("6a88575e42", {
 		  success: function(object) {
@@ -55,6 +60,24 @@
 			alert("query object fail");
 		  }
 		});
-	</script>
+	}
+	
+	function queryDB(){
+		var query = new Bmob.Query(Answer);
+		query.get("XmP1RRRV", {
+		  success: function(object) {
+			console.log(object.get("image"));
+		  },
+		  error: function(object, error) {
+			alert("query object fail");
+		  }
+		});
+	}
+	
+	$("#searchPic").click(function(e) {
+		queryDB();
+	});
+});
+</script>
   </body>
 </html>
