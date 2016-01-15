@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>哈哈！终于！高兴！</title>
+    <title>HaHa!At last!</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
@@ -11,12 +11,18 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <style>
+    	h1 { background-color:#eee; color:#999; padding:10px; border-bottom:1px solid #ddd; }
+		.searchPic { border:1px solid #999; background-color:#fff; padding:10px; }
+    </style>
   </head>
   <body>
-  <h1 id="canUsee">看到了吗？</h1>
-  <input id="searchPic" type="button" value="查图片" />
-  <img id="pic" src="" style="display:none;"/>
-	<script src="//cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
+  <h1 id="canUsee">You? Me?</h1>
+  <button class="searchPic">查图片</button>
+  
+  <img id="pic" src="" style="display:none; width:32px; border-radius:5px;"/>
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/jweixin-1.0.0.js"></script>
   	<script src="javascripts/bmob-min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
 <script>
@@ -76,9 +82,10 @@ $(function(){
 		});
 	}
 	
-	$("#searchPic").click(function(e) {
+	$(".searchPic").click(function(e) {
 		queryDB();
 	});
+	
 });
 </script>
   </body>
