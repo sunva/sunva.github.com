@@ -14,17 +14,19 @@
     <style>
 		body{ background-color:#333; }
 		.start { border:1px solid #999; background-color:#fff; }
-		.line{ position:absolute; left:5%; top:50%; margin-top:-30px; width:90%; height:60px; background-color:#444; border-radius:10px;}
-		.set{ position:absolute; left:25%; top:50%; margin-top:-30px; width:50%; height:60px; background-color:rgba(255,255,255,0.05); text-align:center; }
-		.time-m{ background:none; border:none; color:#999; height:60px; font-size:18px; }
+		.line{ position:absolute; left:5%; top:50%; margin-top:-30px; width:90%; height:60px; background-color:#000; border-radius:10px; opacity:0.3; }
+		.set{ position:absolute; left:5%; top:50%; margin-top:-30px; width:90%; height:60px; background-color:rgba(255,255,255,0.05); text-align:center; border-radius:10px; box-shadow:inset 1px 1px 3px #252525;  }
+		.time-m{ background:none; border:none; color:#999; height:60px; font-size:18px; outline:none; }
+		.reset { display:block; width:60px; height:60px; border-radius:30px; background-color:#444; color:#999; border:none; margin:10px auto; outline:none; }
     </style>
   </head>
   <body>
   
   <div class="line"></div>
   <div class="set">
-  	<input class="time-m" type="time" value="00:30">
+  	<input class="time-m" type="time" value="00:03:00">
   </div>
+  <button class="reset">reset</button>
   
 	<script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
@@ -32,27 +34,38 @@
 $(function(){
 	var lineH = 90;
 	var flag = false;
-	$(".time-m").focus().change(function(e) {
-	//$(".line").click(function(e) {
+	var itv;
+	var run = function() {
 		if(flag){return;}
+		$(".time-m").blur();
 		flag = true;
-		$(".line").css({"background-color":"#888"});
-		console.log(parseInt($(".time-m").val().split(":")[0]));
+		//$(".line").css({"opacity":"0.5"});
 		var time_m = parseInt($(".time-m").val().split(":")[0]);
 		var time_s = parseInt($(".time-m").val().split(":")[1]);
 		
-		var itv = setInterval(function(){
-			lineH-=1;
-			$(".line").css({"width":lineH+"%","background-color":"#888"});
+		itv = setInterval(function(){
+			lineH-=0.1;
+			$(".line").css({"width":lineH+"%"});
 			if(lineH<=0){
-				clearInterval(itv);
-				setTimeout(function(){
-					$(".line").css({"background-color":"#444"}).animate({"width":"90%"},500);
-					lineH = 90;
-					flag = false;
-				},500);
+				aReset();
 			}
-		},(60*time_m+time_s)*10);
+		},60*time_m+time_s);
+	}
+	var aReset =  function(e) {
+		clearInterval(itv);
+		setTimeout(function(){
+			$(".line").animate({"width":"90%"},500);
+			lineH = 90;
+			flag = false;
+		},500);
+		//$(".time-m").focus();
+	}
+	$(".time-m").focus().change(function() {	//$(".line").click(function(e) {
+		run();
+	});
+	
+	$(".reset").click(function(e) {
+		aReset();
 	});
 
 });
