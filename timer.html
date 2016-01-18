@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Timer</title>
+    <title>计时器</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
@@ -14,12 +14,17 @@
     <style>
 		body{ background-color:#333; }
 		.start { border:1px solid #999; background-color:#fff; }
-		.line{ position:absolute; top:5%; left:50%; margin-left:-30px; width:60px; height:90%; background-color:#444; border-radius:10px;}
+		.line{ position:absolute; left:5%; top:50%; margin-top:-30px; width:90%; height:60px; background-color:#444; border-radius:10px;}
+		.set{ position:absolute; left:25%; top:50%; margin-top:-30px; width:50%; height:60px; background-color:rgba(255,255,255,0.05); text-align:center; }
+		.time-m{ background:none; border:none; color:#999; height:60px; font-size:18px; }
     </style>
   </head>
   <body>
-  <input class="time" type="time">
+  
   <div class="line"></div>
+  <div class="set">
+  	<input class="time-m" type="time" value="00:30">
+  </div>
   
 	<script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
@@ -27,25 +32,29 @@
 $(function(){
 	var lineH = 90;
 	var flag = false;
-	$(".line").click(function(e) {
+	$(".time-m").focus().change(function(e) {
+	//$(".line").click(function(e) {
 		if(flag){return;}
-		console.log('a');
 		flag = true;
 		$(".line").css({"background-color":"#888"});
+		console.log(parseInt($(".time-m").val().split(":")[0]));
+		var time_m = parseInt($(".time-m").val().split(":")[0]);
+		var time_s = parseInt($(".time-m").val().split(":")[1]);
+		
 		var itv = setInterval(function(){
 			lineH-=1;
-			$(".line").css({"height":lineH+"%","background-color":"#888"});
+			$(".line").css({"width":lineH+"%","background-color":"#888"});
 			if(lineH<=0){
 				clearInterval(itv);
 				setTimeout(function(){
-					$(".line").animate({"height":"90%","background-color":"#444"},500);
+					$(".line").css({"background-color":"#444"}).animate({"width":"90%"},500);
 					lineH = 90;
 					flag = false;
 				},500);
 			}
-		},10);
+		},(60*time_m+time_s)*10);
 	});
-	
+
 });
 </script>
   </body>
