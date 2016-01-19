@@ -29,9 +29,10 @@
   </div>
   <button class="reset">reset</button>
   <a class="home" href="index.html">Home</a>
+  <div class="toucher" style="width:100%; height:100px; text-align:center; background-color:rgba(255,255,255,0.02); line-height:100px;">0</div>
   
-	<script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/scale.fix.js"></script>
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/scale.fix.js"></script>
 <script>
 $(function(){
 	var lineH = 90;
@@ -62,12 +63,24 @@ $(function(){
 		},500);
 		//$(".time-m").focus();
 	}
-	$(".time-m").focus().change(function() {	//$(".line").click(function(e) {
+	
+	//更改时间触发
+	$(".time-m").change(function() {	//$(".line").click(function(e) {
 		run();
 	});
 	
 	$(".reset").click(function(e) {
 		aReset();
+	});
+	
+	var startX;
+	var minute = 0;
+	$(".toucher").on("mousedown",function(e) {
+		startX = e.clientX;
+	});
+	$(".toucher").on("mousemove",function(e) {
+		minute = minute + e.clientX - startX;
+		$(".toucher").html(minute);
 	});
 
 });
