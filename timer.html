@@ -75,12 +75,15 @@ $(function(){
 	
 	var startX = 0;
 	var minute = 0;
-	$(".toucher").on("mousedown",function(e) {
+	$(".toucher").on("touchstart",function(e) {
 		startX = e.clientX;
-	});
-	$(".toucher").on("mousemove",function(e) {
-		minute = minute + e.clientX - startX;
-		$(".toucher").html(minute);
+		$(".toucher").on("touchmove",function(e) {
+			minute = minute + e.clientX - startX;
+			$(".toucher").html(minute);
+		});
+		$(".toucher").on("touchend",function(e) {
+			$(this).unbind("touchmove");
+		});
 	});
 
 });
