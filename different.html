@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<title>找不同</title>
+<style>
+body{ background-color:#C5F0B5; }
+h1{ font-size:36px; color:#999; text-align:center; }
+.box{ overflow:hidden; width:80%; margin:0px auto;}
+.box>div{ width:40%; margin:5%; background:rgba(255,255,255,0.1); font-size:200px; color:#ccc; float:left; text-align:center; border-radius:10px; }
+	
+@-webkit-keyframes allBg {
+  0% {
+	  color:#ccc;
+  }
+
+  50% {
+	  color:#666;
+  }
+  100% {
+	  color:rgba(255,255,255,0.1);
+  }
+}
+
+.box>div.right {
+	-webkit-animation-name: allBg;
+	-webkit-animation-duration:2s;
+	-webkit-animation-fill-mode:forwards;
+}
+
+@-webkit-keyframes diffBg {
+  0% {
+	  color:#ccc;
+	  background:rgba(255,255,255,0.1);
+  }
+
+  50% {
+	  color:#600;
+	  background:rgba(204,0,0,0.5);
+  }
+  100% {
+	  color:rgba(255,255,255,0.1);
+	  background:rgba(255,255,255,0.1);
+  }
+}
+
+.box>div.diff.right {
+	-webkit-animation-name: diffBg;
+	-webkit-animation-duration:2s;
+	-webkit-animation-fill-mode:forwards;
+}
+
+</style>
+</head>
+
+<body>
+<h1>Find the different</h1>
+<div class="box">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+$(function(){
+	var tArr = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9"];
+	var arrLen = tArr.length;
+	var firstLoad = 0;
+
+	var getTwo = function(){
+		var eqX = parseInt(Math.random()*4);
+		var w1 = parseInt(Math.random()*arrLen);
+		var w2 = parseInt(Math.random()*arrLen);
+		while(w2==w1){w2 = parseInt(Math.random()*arrLen);};
+		if(firstLoad){
+			$(".box>div").addClass("right");
+		}
+		setTimeout(function(){
+			$(".box>div").removeClass("diff right").html(tArr[w1]);
+			$(".box>div:eq("+eqX+")").addClass("diff").html(tArr[w2]);
+			firstLoad = 1;
+		},firstLoad*2000);
+	}
+	getTwo();
+	$(document).on("click",".diff",function(e) {
+        getTwo();
+    });
+})
+</script>
+</body>
+</html>
