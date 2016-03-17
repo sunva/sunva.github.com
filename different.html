@@ -9,42 +9,12 @@ body{ background-color:#C5F0B5; }
 h1{ font-size:24px; color:#695; text-align:center; border-bottom:1px dotted #695; padding:10px 0px; margin:0px; }
 .box{ overflow:hidden; width:90%; margin:10px auto;}
 .box>div{ width:46%; margin:2%; background:rgba(255,255,255,0.4); font-size:130px; height:150px; line-height:150px; color:#666; float:left; text-align:center; border-radius:10px; overflow:hidden; }
-	
-@-webkit-keyframes allBg {
-  0% {
-	  color:#ccc;
-  }
-
-  50% {
-	  color:#666;
-  }
-  100% {
-	  color:rgba(255,255,255,0.4);
-  }
-}
-
-.box>div.allright {
-	-webkit-animation-name: allBg;
-	-webkit-animation-duration:1.6s;
-	-webkit-animation-fill-mode:forwards;
-}
 
 @-webkit-keyframes diffBg {
-  0% {
-	  color:#ccc;
-	  background:rgba(255,255,255,0.1);
-  }
-
-  50% {
-	  color:#fff;
-	  background:rgba(33,66,33,0.5);
-  }
-  100% {
-	  color:rgba(255,255,255,0.1);
-	  background:rgba(255,255,255,0.4);
-  }
+  0% { color:#ccc; background:rgba(255,255,255,0.1); }
+  50% { color:#fff; background:rgba(33,66,33,0.5); }
+  100% { color:rgba(255,255,255,0.1); background:rgba(255,255,255,0.4); }
 }
-
 .box>div.diff.right {
 	-webkit-animation-name: diffBg;
 	-webkit-animation-duration:1.6s;
@@ -58,6 +28,7 @@ ul,li{ padding:0px; margin:0px; list-style:none; }
 .mask{ display:none; position:fixed;width:100%; left:0%; top:0%; height:100%; background:rgba(0,0,0,0.5); }
 .good{ display:none; position:fixed; width:80%; left:10%; top:16%; padding:50px 0px; background:rgba(255,255,255,1); text-align:center; font-size:54px; color:#f30; border:10px dotted #fc0; border-radius:20px; }
 .again{ width:50%; height:35px; font-size:18px; white-space:nowrap; }
+.music163{ position:absolute; width:0px; height:0px; overflow:hidden; left:-999px;}
 </style>
 </head>
 
@@ -74,6 +45,7 @@ ul,li{ padding:0px; margin:0px; list-style:none; }
 </div>
 <div class="mask"></div>
 <div class="good">完成了！<br>你真棒！<br><button class="again">再玩一次</button></div>
+<iframe class="music163" frameborder="no" border="0" marginwidth="0" marginheight="0" src="http://music.163.com/outchain/player?type=2&id=394912&auto=1&height=66"></iframe>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
 $(function(){
