@@ -8,7 +8,7 @@
 body{ background-color:#C5F0B5; }
 h1{ font-size:24px; color:#695; text-align:center; border-bottom:1px dotted #695; padding:10px 0px; margin:0px; }
 .box{ overflow:hidden; width:90%; margin:10px auto;}
-.box>div{ width:46%; margin:2%; background:rgba(255,255,255,0.4); font-size:130px; color:#888; float:left; text-align:center; border-radius:10px; overflow:hidden; }
+.box>div{ width:46%; margin:2%; background:rgba(255,255,255,0.4); font-size:130px; height:150px; line-height:150px; color:#666; float:left; text-align:center; border-radius:10px; overflow:hidden; }
 	
 @-webkit-keyframes allBg {
   0% {
@@ -23,7 +23,7 @@ h1{ font-size:24px; color:#695; text-align:center; border-bottom:1px dotted #695
   }
 }
 
-.box>div.right1 {
+.box>div.allright {
 	-webkit-animation-name: allBg;
 	-webkit-animation-duration:2s;
 	-webkit-animation-fill-mode:forwards;
@@ -50,24 +50,40 @@ h1{ font-size:24px; color:#695; text-align:center; border-bottom:1px dotted #695
 	-webkit-animation-duration:2s;
 	-webkit-animation-fill-mode:forwards;
 }
+ul,li{ padding:0px; margin:0px; list-style:none; }
+.star-ul{ display:block; text-align:center; }
+.star-ul li{ display:inline-block; width:24px; height:24px; font-size:24px; line-height:24px; overflow:hidden; text-align:center; color:rgba(200,0,0,0.2); border:1px solid transparent;}
+.star-ul li.on{ color:rgba(200,0,0,1); border:1px dashed #f60; border-radius:100%; }
 
+.mask{ display:none; position:fixed;width:100%; left:0%; top:0%; height:100%; background:rgba(0,0,0,0.5); }
+.good{ display:none; position:fixed; width:80%; left:10%; top:16%; padding:50px 0px; background:rgba(255,255,255,1); text-align:center; font-size:54px; color:#f30; border:10px dotted #fc0; border-radius:20px; }
+.again{ width:50%; height:35px; font-size:18px; white-space:nowrap; }
 </style>
 </head>
 
 <body>
 <h1>找不同</h1>
+<ul class="star-ul">
+    <li class="on" style="display:none;">★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li>
+</ul>
 <div class="box">
     <div>1</div>
     <div>2</div>
     <div>3</div>
     <div>4</div>
 </div>
+<div class="mask"></div>
+<div class="good">完成了！<br>你真棒！<br><button class="again">再玩一次</button></div>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
 $(function(){
-	var tArr = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9"];
+	var tArr = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","☆","▲","●","◆","★","☽","☼","☺","☹","☀","❤","+"];
+	//,"☆","▲","●","◆","★","☽","☼","☺","☹","☀","❤","+"
 	var arrLen = tArr.length;
-	var firstLoad = 0;
+	var firstLoad = 0,
+		doing = false,
+		starNum = 0,
+		goalNum = 10;
 
 	var getTwo = function(){
 		var eqX = parseInt(Math.random()*4);
@@ -75,16 +91,32 @@ $(function(){
 		var w2 = parseInt(Math.random()*arrLen);
 		while(w2==w1){w2 = parseInt(Math.random()*arrLen);};
 		if(firstLoad){
-			$(".box>div").addClass("right");
+			$(".diff").addClass("right");
+			$(".star-ul li.on").next("li").addClass("on");
+			starNum++;
 		}
 		setTimeout(function(){
-			$(".box>div").removeClass("diff right").html(tArr[w1]);
-			$(".box>div:eq("+eqX+")").addClass("diff").html(tArr[w2]);
-			firstLoad = 1;
+			if(starNum==goalNum){$(".good,.mask").fadeIn();}
+			else{
+				$(".box>div").removeClass("diff right").html(tArr[w1]);
+				$(".box>div:eq("+eqX+")").addClass("diff").html(tArr[w2]);
+				doing = false;
+				if(!firstLoad)firstLoad = 1;
+			}
 		},firstLoad*2000);
 	}
 	getTwo();
 	$(document).on("click",".diff",function(e) {
+		if(doing){return;}
+		doing = true;
+        getTwo();
+    });
+	$(document).on("click",".again",function(e) {
+		$(".good,.mask").fadeOut();
+		$(".star-ul li.on:gt(0)").removeClass("on");
+		starNum = 0;
+		firstLoad = 0;
+		doing = false;
         getTwo();
     });
 })
