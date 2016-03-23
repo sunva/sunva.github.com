@@ -3,18 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<title>男女找不同</title>
+<title>找不同</title>
+<link rel="stylesheet" type="text/css" href="stylesheet/bg.css">
 <style>
 body{ background-color:#C5F0B5; }
 h1{ font-size:24px; color:#695; text-align:center; border-bottom:1px dotted #695; padding:10px 0px; margin:0px; }
 .box{ overflow:hidden; width:90%; margin:10px auto;}
-.box>div{ width:46%; margin:2%; background:rgba(255,255,255,0.4); font-size:130px; height:150px; line-height:150px; color:#666; float:left; text-align:center; border-radius:10px; overflow:hidden; }
+.box>div{ width:44%; margin:2%; background-color:rgba(255,255,255,0.4); font-size:130px; height:150px; line-height:150px; color:#666; float:left; text-align:center; border:2px solid #fff; border-radius:10px; overflow:hidden; }
 .box>div img{ height:100%; }
 
 @-webkit-keyframes diffBg {
-  0% { color:#ccc; background:rgba(255,255,255,0.1); }
-  50% { color:#fff; background:rgba(33,66,33,0.5); }
-  100% { color:rgba(255,255,255,0.1); background:rgba(255,255,255,0.4); }
+  0% { color:#ccc; border-color:#fff; }
+  50% { color:#fff; border-color:#c00; }
+  100% { color:rgba(255,255,255,0.1); border-color:#fff; }
 }
 .box>div.diff.right {
 	-webkit-animation-name: diffBg;
@@ -26,24 +27,24 @@ ul,li{ padding:0px; margin:0px; list-style:none; }
 .star-ul li{ display:inline-block; width:24px; height:24px; font-size:24px; line-height:24px; overflow:hidden; text-align:center; color:rgba(200,0,0,0.2); border:1px solid transparent;}
 .star-ul li.on{ color:rgba(200,0,0,1); border:1px dashed #f60; border-radius:100%; }
 
-.mask{ display:none; position:fixed;width:100%; left:0%; top:0%; height:100%; background:rgba(0,0,0,0.5); }
-.good{ display:none; position:fixed; width:80%; left:10%; top:16%; padding:50px 0px; background:rgba(255,255,255,1); text-align:center; font-size:54px; color:#f30; border:10px dotted #fc0; border-radius:20px; }
+.mask{ display:none; position:fixed;width:100%; left:0%; top:0%; height:100%; background-color:rgba(0,0,0,0.5); }
+.good{ display:none; position:fixed; width:80%; left:10%; top:16%; padding:50px 0px; background-color:rgba(255,255,255,1); text-align:center; font-size:54px; color:#f30; border:10px dotted #fc0; border-radius:20px; }
 .again{ width:50%; height:35px; font-size:18px; white-space:nowrap; }
 .music163{ position:absolute; width:0px; height:0px; overflow:hidden; left:-999px;}
-.reload img{ width:0px;}
+.reload>div{ width:20px; height:20px; display:inline-block; margin:1px;}
 </style>
 </head>
 
 <body>
-<h1>男女找不同</h1>
+<h1>人物找不同</h1>
 <ul class="star-ul">
     <li class="on" style="display:none;">★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li><li>★</li>
 </ul>
 <div class="box">
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
-    <div>4</div>
+    <div> </div>
+    <div> </div>
+    <div> </div>
+    <div> </div>
 </div>
 <div class="mask"></div>
 <div class="good">完成了！<br>你真棒！<br><button class="again">再玩一次</button></div>
@@ -51,52 +52,8 @@ ul,li{ padding:0px; margin:0px; list-style:none; }
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
 $(function(){
-	var tArr = [["<img src='http://b.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=eb781a93b77eca8016053de6a113acac/0eb30f2442a7d93391fc58c3aa4bd11373f0012d.jpg'>",
-"<img src='http://g.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=52be18a390dda144de0968b38287ebd3/d043ad4bd11373f0dc6bd32fa30f4bfbfbed042d.jpg'>",
-"<img src='http://c.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=340453344ded2e73f8e9822db7319afa/fcfaaf51f3deb48f8e2a1d6ef71f3a292df5783a.jpg'>",
-"<img src='http://d.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=2bdcdabd219759ee4e5064ca82cb7867/a9d3fd1f4134970a1368ae9f92cad1c8a7865d62.jpg'>",
-"<img src='http://c.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=e9c0f170f036afc30a0c3b648329d0b5/2fdda3cc7cd98d10eb66b081263fb80e7aec90d4.jpg'>",
-"<img src='http://a.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=f95a3119ae014c081d3b2ca43a4b3979/5fdf8db1cb134954195d54d4514e9258d1094a3a.jpg'>",
-"<img src='http://c.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=45caca298526cffc6d2abbb3893171e1/7aec54e736d12f2e4bb712d048c2d562843568d4.jpg'>",
-"<img src='http://e.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=92778e882f381f309a1989a899317779/9825bc315c6034a852870431cc1349540923761c.jpg'>",
-"<img src='http://a.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=48de71998118367aa9897dd91e48fae9/4ec2d5628535e5dd1f9e196f71c6a7efcf1b62d4.jpg'>",
-"<img src='http://e.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=8492817a563d26972ad30c5c65cb898a/a71ea8d3fd1f4134b374b9ce221f95cad1c85e3a.jpg'>"],[
+	var tArr = [["b1","b2","b3","b4","b5","b6","b7","b8","b9","b10"],["g1","g2","g3","g4","g5","g6","g7","g8","g9","g10"]]
 
-"<img src='http://a.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=ce271bd8d609b3deefbfe069fc8f57f0/63d9f2d3572c11df31850393642762d0f703c22e.jpg'>",
-"<img src='http://a.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=ce271bd8d609b3deefbfe069fc8f57f0/63d9f2d3572c11df31850393642762d0f703c22e.jpg'>",
-"<img src='http://g.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=63535daa2f34349b70066a84f9da2ebf/d31b0ef41bd5ad6e9bbad85a86cb39dbb6fd3c3a.jpg'>",
-"<img src='http://h.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=93baa1b4339b033b2888f8db25fe0da2/0ff41bd5ad6eddc4164a084b3edbb6fd536633d4.jpg'>",
-"<img src='http://f.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=2d6ad8bd219759ee4e5064ca82cb7867/a9d3fd1f4134970a15deac9f92cad1c8a6865dd4.jpg'>",
-"<img src='http://d.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=b21f296c0ffa513d55aa68df0d5d6e8a/838ba61ea8d3fd1f62a41e8a374e251f94ca5fd4.jpg'>",
-"<img src='http://d.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=503b7fa46c600c33f479dac92a7c6a7e/b812c8fcc3cec3fdc75b1bc5d188d43f8794271c.jpg'>",
-"<img src='http://f.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=047b417cc4cec3fd8f3ea374e6b8ef4e/8644ebf81a4c510f64905eaa6759252dd42aa52e.jpg'>",
-"<img src='http://a.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=9472a1b4339b033b2888fede25f547ee/9345d688d43f8794e49af49ed51b0ef41bd53a1c.jpg'>",
-"<img src='http://g.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=5396bf53d239b60049ce0db3d96b4417/d31b0ef41bd5ad6e9b9cd85a86cb39dbb6fd3c1c.jpg'>"]]
-	/*var tArr = [["<img src='http://img4.imgtn.bdimg.com/it/u=2261218391,1174952561&fm=23&gp=0.jpg'>",
-				"<img src='http://img5.imgtn.bdimg.com/it/u=2600939502,2549262483&fm=23&gp=0.jpg'>",
-				"<img src='http://img5.imgtn.bdimg.com/it/u=476369894,2428922841&fm=21&gp=0.jpg'>",
-				"<img src='http://img5.imgtn.bdimg.com/it/u=519661643,2643058068&fm=23&gp=0.jpg'>",
-				"<img src='http://img0.imgtn.bdimg.com/it/u=2722845563,1697148335&fm=23&gp=0.jpg'>",
-				"<img src='http://img5.imgtn.bdimg.com/it/u=1066022649,2884719824&fm=23&gp=0.jpg'>",
-				"<img src='http://img0.imgtn.bdimg.com/it/u=1265129000,1744647358&fm=21&gp=0.jpg'>",
-				"<img src='http://img2.imgtn.bdimg.com/it/u=1878176372,471189480&fm=21&gp=0.jpg'>",
-				"<img src='http://img4.imgtn.bdimg.com/it/u=2389618638,4020213434&fm=21&gp=0.jpg'>",
-				"<img src='http://img5.imgtn.bdimg.com/it/u=2315875768,3813793001&fm=21&gp=0.jpg'>"
-				],
-				["<img src='http://h.hiphotos.baidu.com/image/h%3D300/sign=818b17aefa1f4134ff37037e151e95c1/c995d143ad4bd11354653d7f5dafa40f4afb05d6.jpg'>",
-				"<img src='http://img1.imgtn.bdimg.com/it/u=1819655436,1406018065&fm=23&gp=0.jpg'>",
-				"<img src='http://img2.imgtn.bdimg.com/it/u=809477074,425897398&fm=23&gp=0.jpg'>",
-				"<img src='http://img5.imgtn.bdimg.com/it/u=2793937668,2646927681&fm=23&gp=0.jpg'>",
-				"<img src='http://img3.imgtn.bdimg.com/it/u=1280342729,2841919618&fm=21&gp=0.jpg'>",
-				"<img src='http://img3.imgtn.bdimg.com/it/u=884726891,2287031506&fm=21&gp=0.jpg'>",
-				"<img src='http://h.hiphotos.baidu.com/image/h%3D360/sign=0d102c4b89d4b31cef3c92bdb7d7276f/6a600c338744ebf85db15337dbf9d72a6159a7f1.jpg'>",
-				"<img src='http://c.hiphotos.baidu.com/image/h%3D360/sign=a826853bdbf9d72a0864161be42b282a/4ec2d5628535e5dd557b44db74c6a7efce1b625b.jpg'>",
-				"<img src='http://f.hiphotos.baidu.com/image/h%3D360/sign=f6007fc08301a18befeb1449ae2d0761/8644ebf81a4c510fa42d1bf66459252dd52aa575.jpg'>",
-				"<img src='http://img0.imgtn.bdimg.com/it/u=3324459825,3110332393&fm=21&gp=0.jpg'>"
-				]];
-				*/
-	//var tArr = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","☆","▲","●","◆","★","☼","☀","❤","+","→"];
-	//,"☆","▲","●","◆","★","☽","☼","☺","☹","☀","❤","+"↑↓←→↗↖↙↘
 	var arrLen = tArr[0].length;
 	var firstLoad = 0,
 		doing = false,
@@ -123,11 +80,11 @@ $(function(){
 				var BorG = parseInt(Math.random()*2);
 				var GorB = (BorG==0?1:0);
 				console.log(BorG+"-----"+GorB);
-				$(".box>div").removeClass("diff right");
-				$(".box>div:eq("+eqX+")").addClass("diff").html(tArr[GorB][parseInt(Math.random()*10)]);
-				$(".box>div:not(.diff):eq(0)").html(tArr[BorG][w1]);
-				$(".box>div:not(.diff):eq(1)").html(tArr[BorG][w2]);
-				$(".box>div:not(.diff):eq(2)").html(tArr[BorG][w3]);
+				$(".box>div").removeClass();
+				$(".box>div:eq("+eqX+")").addClass("diff").addClass(tArr[GorB][parseInt(Math.random()*10)]);
+				$(".box>div:not(.diff):eq(0)").addClass(tArr[BorG][w1]);
+				$(".box>div:not(.diff):eq(1)").addClass(tArr[BorG][w2]);
+				$(".box>div:not(.diff):eq(2)").addClass(tArr[BorG][w3]);
 				doing = false;
 				if(!firstLoad)firstLoad = 1;
 			}
@@ -147,10 +104,6 @@ $(function(){
 		doing = false;
         getTwo();
     });
-	for(var i=0;i<10;i++){
-		$(".reload").append(tArr[0][i]);
-		$(".reload").append(tArr[1][i]);
-	}
 })
 </script>
 </body>
